@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>The Banana Game</title>
+ <style>
+    body {
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Center items horizontally */
+        justify-content: center; /* Center items vertically */
+        height: 100vh; /* Make body full height of the viewport */
+        margin: 0; /* Remove default margin */
+        background-image: url('banana_img.png'); 
+       background-size: cover; /* Cover the entire viewport */
+       background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Prevent the image from repeating */
+    
+    }
+    #game-container {
+    background: #a8c17a;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    max-width: 600px;
+    margin: auto;
+    width: 90%;
+    top:10%;
+    
+    position: relative; /* Position context for any absolute elements inside */
+    
+    transform: translateY(-50%); /* Center it vertically */
+    text-align: center; /* Center text inside the container */
+}
+    #quest {
+        display: block; /* Make sure the image is treated as a block element */
+        margin: 0 auto; /* Center the image horizontally */
+        max-width: 100%; /* Ensure image fits within the screen */
+        height: auto; /* Maintain aspect ratio */
+    }
+    .button-62 {
+        
+    padding: 5px; /* Inner spacing */
+    border: none; /* Remove default border */
+    border-radius: 5px; /* Rounded corners */
+    background-color: #5c7f2b; /* Dark green background */
+    color: white; /* Text color */
+    font-size: 16px; /* Text size */
+    }
+    h2 {
+        text-align: center; /* Center the text */
+    }
+</style>
+    <script>
+        var quest = "";
+        var solution = -1;
+        var score = 0;
+        let timeRemaining = 60; // 60 seconds
+        let timerInterval;
+        let timerHasStarted = false;
+
+        let newgame = function(x) {
+           
+            startup();
+        }
+        let handleInput = function(x) {
+
+            let inp = document.getElementById("input");
+            var note = document.getElementById("note");
+            var scoreDisplay = document.getElementById("score"); 
+            if (inp.value == solution) {
+                score++;
+                note.innerHTML = 'Correct! -  <button class="button-62" onClick="newgame()" >New game?</button>';
+                scoreDisplay.innerHTML = "Score: " + score;
+            } else {
+                note.innerHTML = "Not Correct!";
+            }
+        }
+
+        let saveScore = function() {
+           let savedScores = JSON.parse(localStorage.getItem("savedScores")) || [];
+           savedScores.push(score); // Add current score to saved scores
+           localStorage.setItem("savedScores", JSON.stringify(savedScores)); // Save to local storage
+           window.location.href = 'results.html';
+}
+
+let startCountdown = function() {
+            if (!timerHasStarted) {
+                let endTime = new Date().getTime() + timeRemaining * 1000;
+
+                timerInterval = setInterval(() => {
+                    let now = new Date().getTime();
+                    let remainingTime = Math.ceil((endTime - now) / 1000);
+
+                    if (remainingTime <= 0) {
+                        clearInterval(timerInterval);
+                        document.getElementById('timer').textContent = "Time's up!";
+                        alert("Time's up! Your final score is: " + score);
+                        endGame(); // You can add an end game function here if needed
+                    } else {
+                        document.getElementById('time').textContent = remainingTime;
+                    }
+                }, 1000);
+
+                timerHasStarted = true; // Ensure timer is only started once
+            }
+        }
+
+        let startQuest = function(data) {
+            var parsed = JSON.parse(data);
+            quest = parsed.question;
+            solution = parsed.solution;
+            let img = document.getElementById("quest");
+            img.src = quest;
+            let note = document.getElementById("note");
+            note.innerHTML = "Start Your New Challenge !";
+        }
+
+        let fetchText = async function() {
+            let response = await fetch('https://marcconrad.com/uob/banana/api.php');
+            let data = await response.text();
+            startQuest(data);
+        }
+
+        let startup = function() {
+            fetchText();
+            
+        }
+        window.onload = function() {
+            startup(); // Start the first puzzle
+            startCountdown(); // Start the countdown once
+        }
+    </script>
+
+</head>
+
+<body>
+    <script>
+        startup();
+    </script>
+   
+    <img id="quest" />
+<div id="game-container">
+    <h2 class="h2-62" id="note">[Wait for first game]</h2>
+    <div id="timer">Time Remaining: <span id="time">60</span> seconds</div>
+
+
+    <h2>Enter the missing digit: <input class="button-62" id="input" onchange="handleInput()" type="number" step="1" min="0" max="9"></h2>
+    <h2 id="score">Score: 0</h2>
+    <button class="button-62" onclick="saveScore()">Save Score</button>
+    </div>
+    
+</body>
+
+</html>

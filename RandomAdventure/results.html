@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Final Results</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f5f5f5;
+        }
+        h2 {
+            color: #333;
+            font-family: Arial, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <h2 id="resultDisplay"></h2>
+
+    <script>
+        // Function to calculate and display final results
+        let showFinalResults = function() {
+            // Retrieve player name and main game score
+            const playerName = localStorage.getItem('playerName'); // Assuming playerName was saved in localStorage
+            const scores = JSON.parse(localStorage.getItem('scores')) || [];
+            const mainGameEntry = scores.find(entry => entry.name === playerName);
+
+            // Retrieve the banana game score
+            const bananaGameScores = JSON.parse(localStorage.getItem('savedScores')) || [];
+            const bananaGameScore = bananaGameScores.length > 0 ? bananaGameScores[bananaGameScores.length - 1] : 0;
+
+            // Calculate combined score
+            let combinedScore = 0;
+            if (mainGameEntry) {
+                combinedScore = mainGameEntry.mainGameScore + bananaGameScore; // mainGameScore now stored explicitly
+            }
+
+            // Display the result
+            let resultDisplay = document.getElementById('resultDisplay');
+            if (mainGameEntry) {
+                resultDisplay.innerHTML = `Congratulations, ${playerName}! Your combined score is: ${combinedScore}`;
+            } else {
+                resultDisplay.innerHTML = 'Player not found or scores not available.';
+            }
+        }
+
+        // Call showFinalResults when the page loads
+        window.onload = showFinalResults;
+    </script>
+</body>
+</html>
