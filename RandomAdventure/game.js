@@ -1,11 +1,10 @@
 let playerName = '';
 let score = 0;
 let currentScenarioIndex = 0;
-let timeRemaining = 60; // 60 seconds
+let timeRemaining = 60; 
 let timerInterval;
 
-
-/ Story scenarios with choices
+// Story scenarios with choices
 const scenarios = [
     {
         text: "You wake up in a mysterious forest. You can see two paths ahead. Do you take the left path or the right path?",
@@ -31,13 +30,13 @@ const scenarios = [
     {
         text: "The deer lets you pet it and leads you to a hidden treasure. You gain points!",
         choices: [
-            { text: "Continue the adventure", nextScenario: 7 } // Continue to new scenario
+            { text: "Continue the adventure", nextScenario: 7 } 
         ]
     },
     {
         text: "You realize the forest is dangerous and you need to find a way out. You gain points!",
         choices: [
-            { text: "Continue the adventure", nextScenario: 10 } // Continue to new scenario
+            { text: "Continue the adventure", nextScenario: 10 } 
         ]
     },
     {
@@ -50,19 +49,19 @@ const scenarios = [
     {
         text: "You safely walk around the cave and discover a path leading out of the forest. You gain  points!",
         choices: [
-            { text: "Continue the adventure", nextScenario: 10 } // Continue to new scenario
+            { text: "Continue the adventure", nextScenario: 10 } 
         ]
     },
     {
         text: "You go into some bushes and has to find your way back to safety. You gain points!",
         choices: [
-            { text: "Continue the adventure", nextScenario: 10 } // Continue to new scenario
+            { text: "Continue the adventure", nextScenario: 10 } 
         ]
     },
     {
         text: "The dragon wakes up and roars! You barely escape with your life. You gain points!",
         choices: [
-            { text: "Continue the adventure", nextScenario: 10 } // Continue to new scenario
+            { text: "Continue the adventure", nextScenario: 10 } 
         ]
     },
     {
@@ -152,7 +151,7 @@ const scenarios = [
         text: "You answer the riddle correctly and the troll lets you pass. You keep moving",
         choices: [
             { text: "Keep Moving", nextScenario: 33 }
-                 ]
+        ]
     },
     {
         text: "You find yourself in a new realm! Congratulations, you win!",
@@ -176,56 +175,49 @@ const scenarios = [
     {
         text: "A magical mist surrounds you, granting you insight. You gain points!",
         choices: [
-                        { text: "Make a wish for adventure", nextScenario: 15 } // Path to winning scenario
+            { text: "Make a wish for adventure", nextScenario: 15 } 
         ]
     },
     {
         text: "Owl advice you to find the bridge to the new realm",
         choices: [
-           
-            { text: "Make a wish for adventure", nextScenario: 15 } // Path to winning scenario
+            { text: "Make a wish for adventure", nextScenario: 15 } 
         ]
     },
     {
         text: "You wander aimlessly, losing time.",
         choices: [
-            
-            { text: "Make a wish for adventure", nextScenario: 15 } // Path to winning scenario
+            { text: "Make a wish for adventure", nextScenario: 15 } 
         ]
     },
     {
         text: "You join some adventurers and embark on a quest together. You gain points!",
         choices: [
-          
-            { text: "Make a wish for adventure", nextScenario: 15 } // Path to winning scenario
+          { text: "Make a wish for adventure", nextScenario: 15 } 
         ]
     },
     {
         text: "You face the beast without allies. You gain points!",
         choices: [
-            
-            { text: "Make a wish for adventure", nextScenario: 15 } // Path to winning scenario
+            { text: "Make a wish for adventure", nextScenario: 15 } 
         ]
     },
     {
         text: "You get tired and wish to go back home soon.",
         choices: [
-        
-            { text: "Make a wish for adventure", nextScenario: 15 } // Path to winning scenario
+            { text: "Make a wish for adventure", nextScenario: 15 } 
         ]
     },
     {
         text: "You come across an ancient temple.",
         choices: [
-          
-            { text: "Make a wish for adventure", nextScenario: 15 } // Path to winning scenario
+            { text: "Make a wish for adventure", nextScenario: 15 } 
         ]
     },
     {
         text: "You meet a fairy who grants you a wish.",
         choices: [
-           
-            { text: "Make a wish for adventure", nextScenario: 15 } // Path to winning scenario
+            { text: "Make a wish for adventure", nextScenario: 15 } 
         ]
     },
     {
@@ -242,13 +234,12 @@ document.getElementById('start-game').addEventListener('click', startGame);
 document.getElementById('save-score').addEventListener('click', saveScore);
 
 // Start the game
-// Start the game
 async function startGame() {
     playerName = document.getElementById('player-name').value;
     
     if (playerName) {
         // Store player name in localStorage
-        localStorage.setItem('playerName', playerName);  // Save player name to localStorage
+        localStorage.setItem('playerName', playerName);  
         
         // Hide player info input and show scoreboard
         document.getElementById('player-info').classList.add('hidden');
@@ -257,7 +248,7 @@ async function startGame() {
         // Initialize score and scenario index
         score = 0;
         currentScenarioIndex = 0; 
-        document.getElementById('score').textContent = score; // Initialize score display
+        document.getElementById('score').textContent = score; 
         
         displayScenario(); // Show the first scenario
         await startCountdown(); // Start the countdown timer
@@ -266,13 +257,12 @@ async function startGame() {
     }
 }
 
-
-
 function endGame() {
     // Logic to end the game
     document.getElementById('scenario').textContent = "Thank you for playing! Your final score is: " + score;
     document.getElementById('choices').classList.add('hidden');
 }
+
 // Display the current scenario and choices
 function displayScenario() {
     const scenario = scenarios[currentScenarioIndex];
@@ -293,7 +283,7 @@ function makeChoice(nextScenarioIndex) {
     const scenario = scenarios[currentScenarioIndex];
     // Update score based on the choice made
     if (nextScenarioIndex !== null) {
-        score += 5; // Example: Each choice gives 5 points
+        score += 5; 
         currentScenarioIndex = nextScenarioIndex; // Move to the next scenario
         displayScenario(); // Display the next scenario
         document.getElementById('score').textContent = score; // Update displayed score
@@ -304,7 +294,6 @@ function makeChoice(nextScenarioIndex) {
         document.getElementById('choices').classList.add('hidden');
     }
 }
-
 
 // Save score locally
 function saveScore() {
@@ -330,7 +319,6 @@ function saveScore() {
     checkTopScores(scores);
 }
 
-
 function checkTopScores(scores) {
     // Sort scores by highest score
     scores.sort((a, b) => b.score - a.score);
@@ -343,14 +331,12 @@ function checkTopScores(scores) {
         // Display message in the HTML
         document.getElementById("message").innerHTML = "You’ve unlocked a challenge! Solve the banana equations to reveal the hidden treasure!";
         
-        // Redirect after a short delay (e.g., 3 seconds)
+        // Redirect after a short delay 
         setTimeout(() => {
-            window.location.href = "banana.html"; // Change to your actual HTML file
+            window.location.href = "banana.html";
         }, 3000);
     }
 }
-
-
 
 // Update leaderboard display
 function updateLeaderboard(scores) {
