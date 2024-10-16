@@ -4,44 +4,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Final Results</title>
     <style>
-         body {
+        body {
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
             background-image: url('img.jpg'); 
-            background-size: cover; /* Cover the entire viewport */
-            background-position: center; /* Center the image */
-            background-repeat: no-repeat; /* Prevent the image from repeating */
+            background-size: cover; 
+            background-position: center; 
+            background-repeat: no-repeat;
         }
         h2 {
             color: #333;
             font-family: Arial, sans-serif;
         }
         #game-container {
-             background: #a8c17a;
-             border-radius: 10px;
-             padding: 15px;
-             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-             max-width: 600px;
-             margin: auto;
-             width: 90%;
-             top:10%;
-             position: relative; /* Position context for any absolute elements inside */
-             transform: translateY(-50%); /* Center it vertically */
-             text-align: center; /* Center text inside the container */
-}
+            background: #a8c17a;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            margin: auto;
+            width: 90%;
+            top:10%;
+            position: relative; 
+            transform: translateY(-50%); 
+            text-align: center; 
+        }
     </style>
 </head>
 <body>
+    <div id="game-container">
     <h2 id="resultDisplay"></h2>
-
+    </div>
     <script>
         // Function to calculate and display final results
         let showFinalResults = function() {
             // Retrieve player name and main game score
-            const playerName = localStorage.getItem('playerName'); // Assuming playerName was saved in localStorage
+            const playerName = localStorage.getItem('playerName'); 
             const scores = JSON.parse(localStorage.getItem('scores')) || [];
             const mainGameEntry = scores.find(entry => entry.name === playerName);
 
@@ -52,13 +53,13 @@
             // Calculate combined score
             let combinedScore = 0;
             if (mainGameEntry) {
-                combinedScore = mainGameEntry.mainGameScore + bananaGameScore; // mainGameScore now stored explicitly
+                combinedScore = mainGameEntry.mainGameScore + bananaGameScore; 
             }
 
             // Display the result
             let resultDisplay = document.getElementById('resultDisplay');
             if (mainGameEntry) {
-                resultDisplay.innerHTML = `Congratulations, ${playerName}! Your combined score is: ${combinedScore}`;
+                resultDisplay.innerHTML = `Congratulations, ${playerName}! Your final score is: ${combinedScore}`;
             } else {
                 resultDisplay.innerHTML = 'Player not found or scores not available.';
             }
