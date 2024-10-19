@@ -57,6 +57,7 @@ button:active {
     transform: translateY(2px); /* Push button down when clicked */
 }
 
+
 #player-name {
     padding: 10px; /* Inner spacing */
     border: 2px solid #5c7f2b; 
@@ -81,14 +82,36 @@ button:active {
     background-color: #4a6b2c; 
 }
 
-#extra-points-button{
-        width: 120px;  /* Adjust width */
-        height: 30px;  /* Adjust height */
-        font-size: 14px;  /* Adjust font size */
-        padding: 5px;  /* Adjust padding */
-        position: absolute; /* Keep button in a specific position */
-        top: 10px;  /* Distance from the top */
-        right: 10px;  /* Distance from the right */
-        cursor: pointer;  /* Change cursor to pointer */
+#exit-button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 50px;
+    height: 20px;
+    font-size: 15px;
+    font-weight: bold;
+    color: white;
+    background-color: #dc3545; /* Vibrant red */
+    border: none;
+    border-radius: 12px; /* Rounded corners */
+    cursor: pointer;
+    box-shadow: 0 5px #a71d2a; /* Shadow for depth */
+    transition: all 0.2s ease; /* Smooth hover transition */
+    display: flex; /* Enable flexbox */
+    justify-content: center; /* Center text horizontally */
+    align-items: center; /* Center text vertically */
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
+#exit-button:hover {
+    background-color: #c82333; /* Darker red on hover */
+    transform: translateY(-3px); /* Lift button on hover */
+}
+
+#exit-button:active {
+    background-color: #a71d2a; /* Even darker red on click */
+    box-shadow: 0 2px #a71d2a; /* Smaller shadow when pressed */
+    transform: translateY(2px); /* Button press effect */
+}
