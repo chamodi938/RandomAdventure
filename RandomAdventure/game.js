@@ -319,6 +319,10 @@ function saveScore() {
     checkTopScores(scores);
 }
 
+let exitGame = function() {
+    window.location.href = 'index.html'; 
+}
+
 function checkTopScores(scores) {
     // Sort scores by highest score
     scores.sort((a, b) => b.score - a.score);
