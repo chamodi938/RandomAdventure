@@ -249,7 +249,7 @@ async function startGame() {
         score = 0;
         currentScenarioIndex = 0; 
         document.getElementById('score').textContent = score; 
-        
+        document.getElementById('time').textContent = timeRemaining; 
         displayScenario(); // Show the first scenario
         await startCountdown(); // Start the countdown timer
     } else {
@@ -259,6 +259,7 @@ async function startGame() {
 
 function endGame() {
     // Logic to end the game
+    clearInterval(timerInterval);
     document.getElementById('scenario').textContent = "Thank you for playing! Your final score is: " + score;
     document.getElementById('choices').classList.add('hidden');
 }
@@ -320,7 +321,7 @@ function saveScore() {
 }
 
 let exitGame = function() {
-    window.location.href = 'index.html'; 
+    window.location.href = 'game.php'; 
 }
 
 function checkTopScores(scores) {
@@ -337,7 +338,7 @@ function checkTopScores(scores) {
         
         // Redirect after a short delay 
         setTimeout(() => {
-            window.location.href = "banana.html";
+            window.location.href = "banana.php";
         }, 3000);
     }
 }
@@ -359,30 +360,13 @@ function updateLeaderboard(scores) {
     document.getElementById('leaderboard').classList.remove('hidden');
 }
 
-async function startCountdown() {
-    // Fetch current time from API
-    try {
-        const response = await fetch('http://worldtimeapi.org/api/timezone/Etc/UTC');
-        const data = await response.json();
-        const currentTime = new Date(data.datetime);
-        
-        // Set end time
-        const endTime = new Date(currentTime.getTime() + timeRemaining * 1000);
-        
-        timerInterval = setInterval(() => {
-            const now = new Date();
-            const remainingTime = Math.ceil((endTime - now) / 1000);
+function startCountdown() {
+    timerInterval = setInterval(() => {
+        timeRemaining--; 
+        document.getElementById('time').textContent = timeRemaining; 
 
-            if (remainingTime <= 0) {
-                clearInterval(timerInterval);
-                document.getElementById('timer').textContent = "Time's up!";
-                alert("Time's up! You lost the game!");
-                endGame();
-            } else {
-                document.getElementById('time').textContent = remainingTime;
-            }
-        }, 1000);
-    } catch (error) {
-        console.error("Error fetching time:", error);
-    }
+        if (timeRemaining <= 0) {
+            endGame(); 
+        }
+    }, 1000); // Update every second
 }
