@@ -33,9 +33,9 @@ if (!isset($_SESSION['user_id'])) {
         #game-container {
             background: #a8c17a;
             border-radius: 10px;
-            padding: 15px;
+            padding: 25px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-            max-width: 600px;
+            max-width: 800px;
             margin: auto;
             width: 90%;
             top:10%;
@@ -43,11 +43,28 @@ if (!isset($_SESSION['user_id'])) {
             transform: translateY(-50%); 
             text-align: center; 
         }
+        .button-back {
+            margin: 10px;
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            background-color: #28a745; /* Vibrant green */
+            border: none;
+            border-radius: 10px; /* Rounded corners */
+            cursor: pointer;
+            box-shadow: 0 5px #1c7430; /* Shadow to make it pop */
+            transition: all 0.2s ease;
+        }
+        .button-back:hover {
+            background-color: #45a049;
+        }
     </style>
 </head>
 <body>
     <div id="game-container">
     <h2 id="resultDisplay"></h2>
+    <button class="button-back" onclick="window.location.href='game.php'">Back to Game</button>
     </div>
 
     <script>
