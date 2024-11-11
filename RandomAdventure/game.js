@@ -296,6 +296,7 @@ function makeChoice(nextScenarioIndex) {
     }
 }
 
+//part of the code snippet is adapted from stack overflow url: https://stackoverflow.com/questions/35273539/json-parse-from-localstorage-issue
 // Save score locally
 function saveScore() {
     const scores = JSON.parse(localStorage.getItem('scores')) || [];
@@ -360,6 +361,7 @@ function updateLeaderboard(scores) {
     document.getElementById('leaderboard').classList.remove('hidden');
 }
 
+//concept for the below function adapted from a youtube video url: https://www.youtube.com/watch?v=4piMZDO5IOI
 function startCountdown() {
     timerInterval = setInterval(() => {
         timeRemaining--; 
