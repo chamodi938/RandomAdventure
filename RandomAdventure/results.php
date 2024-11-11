@@ -90,6 +90,7 @@ if (!isset($_SESSION['user_id'])) {
             if (mainGameEntry) {
                 resultDisplay.innerHTML = `Congratulations, ${playerName}! Your combined score is: ${combinedScore}`;
 
+                //To write parts of below code snippet used stack overflow url: https://stackoverflow.com/questions/39565706/post-request-with-fetch-api
                 // Send combined score to save_results.php
                 try {
                     const response = await fetch('save_results.php', {
