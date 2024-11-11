@@ -31,6 +31,7 @@ if (isset($data['combinedScore']) && is_int($data['combinedScore'])) {
     $combinedScore = (int)$data['combinedScore']; // Ensure it's treated as an integer
     $userId = $_SESSION['user_id']; 
 
+    //stack flow url : https://stackoverflow.com/questions/18316501/php-update-prepared-statement used partially for below code snippet
     // Update the score in the database
     $stmt = $conn->prepare("UPDATE users SET scores = ? WHERE id = ?");
     $stmt->bind_param("ii", $combinedScore, $userId); // "ii" for two integers
