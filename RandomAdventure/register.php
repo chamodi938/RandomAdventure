@@ -5,6 +5,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'];
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
+     //parts of the below code snippet adapted from stack overflow url: https://stackoverflow.com/questions/49273814/mysql-check-if-username-already-exists-before-submitting-the-form
     // Check if the username already exists
     $stmt = $pdo->prepare("SELECT * FROM users WHERE username = ?");
     $stmt->execute([$username]);
