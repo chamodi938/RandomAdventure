@@ -89,6 +89,7 @@ if (!isset($_SESSION['user_id'])) {
         }
 </style>
     <script>
+        /* Certain functions were adapted from https://marcconrad.com/uob/banana/ */
         var quest = "";
         var solution = -1;
         var score = 0;
