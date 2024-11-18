@@ -362,8 +362,32 @@ function updateLeaderboard(scores) {
 }
 
 //concept for the below function adapted from a youtube video url: https://www.youtube.com/watch?v=4piMZDO5IOI
-function startCountdown() {
-    timerInterval = setInterval(() => {
+async function startCountdown() {
+    // Fetch current time from API
+    try {
+        const response = await fetch('http://worldtimeapi.org/api/timezone/Etc/UTC');
+        const data = await response.json();
+        const currentTime = new Date(data.datetime);
+        
+        // Set end time
+        const endTime = new Date(currentTime.getTime() + timeRemaining * 1000);
+        
+        timerInterval = setInterval(() => {
+            const now = new Date();
+            const remainingTime = Math.ceil((endTime - now) / 1000);
+
+            if (remainingTime <= 0) {
+                clearInterval(timerInterval);
+                document.getElementById('timer').textContent = "Time's up!";
+                alert("Time's up! You lost the game!");
+                endGame();
+            } else {
+                document.getElementById('time').textContent = remainingTime;
+            }
+        }, 1000);
+    } catch (error) {
+        console.error("Error fetching time:", error);
+         timerInterval = setInterval(() => {
         timeRemaining--; 
         document.getElementById('time').textContent = timeRemaining; 
 
@@ -371,4 +395,6 @@ function startCountdown() {
             endGame(); 
         }
     }, 1000); // Update every second
+    }
 }
+
