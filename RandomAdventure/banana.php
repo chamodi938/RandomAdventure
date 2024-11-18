@@ -137,7 +137,7 @@ if (!isset($_SESSION['user_id'])) {
                         clearInterval(timerInterval);
                         document.getElementById('timer').textContent = "Time's up!";
                         alert("Time's up! Your final score is: " + score);
-                        endGame(); 
+                       
                     } else {
                         document.getElementById('time').textContent = remainingTime;
                     }
